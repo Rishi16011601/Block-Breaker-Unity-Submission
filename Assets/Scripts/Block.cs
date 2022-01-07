@@ -6,17 +6,16 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     //config para
-    [SerializeField] AudioClip breakSound;
-    [SerializeField] GameObject blockSparklesVFX;
-   // [SerializeField] int maxHits;
-    [SerializeField] Sprite[] hitSprites;
+    [SerializeField] AudioClip breakSound;              //ENCAPSULATION
+    [SerializeField] public GameObject blockSparklesVFX;       //ENCAPSULATION
+    [SerializeField] Sprite[] hitSprites;               //ENCAPSULATION
 
     //cached reference
     Level level;
     GameStatus gamestatus;
 
-    //state variables
-    [SerializeField] int timesHit; 
+    //state variables 
+    [SerializeField] int timesHit;                      //ENCAPSULATION   
 
     private void Start()
     {
@@ -75,10 +74,10 @@ public class Block : MonoBehaviour
 
     private void DestroyBlock()
     {
-        PlayBlockDestroyedSFX();
-        Destroy(gameObject);
-        level.BlockDestroyed();
-        TriggerSparklesVFX();
+        PlayBlockDestroyedSFX();    //ABSTRACTION
+        Destroy(gameObject);        
+        level.BlockDestroyed();     //ABSTRACTION
+        TriggerSparklesVFX();       //ABSTRACTION
 
     }
 
@@ -88,7 +87,7 @@ public class Block : MonoBehaviour
         gamestatus.AddToScore();
     }
 
-    private void TriggerSparklesVFX()
+    public virtual void TriggerSparklesVFX()
     {
         GameObject sparkles = Instantiate(blockSparklesVFX, transform.position, transform.rotation);
         Destroy(sparkles, 2f);
